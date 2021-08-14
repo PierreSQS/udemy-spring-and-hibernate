@@ -13,7 +13,6 @@ public class CustomerController {
 
     private final CustomerDAO customerDAO;
 
-    @Autowired
     public CustomerController(CustomerDAO customerDAO) {
         this.customerDAO = customerDAO;
     }
@@ -21,7 +20,7 @@ public class CustomerController {
     @GetMapping("list")
     public String listCustomers(Model model) {
         model.addAttribute("customers", customerDAO.getCustomers());
-        System.out.println("### a user from the DB: "+customerDAO.getCustomers().get(2));
+//        System.out.println("### a user from the DB: "+customerDAO.getCustomers().get(2));
         return "list-customers";
     }
 }
