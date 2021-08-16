@@ -4,7 +4,6 @@ import com.luv2code.springdemo.entities.Customer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,11 +27,8 @@ public class CustomerDAOImpl implements CustomerDAO {
         // create  a Query
         Query<Customer> theCustomersQuery = currentSession.createQuery("from Customer", Customer.class);
 
-        // execute the query and get the result list of the query
-        List<Customer> resultList = theCustomersQuery.getResultList();
-
-        // return the list of customers
-        return resultList;
+        // execute the query and return the result list of the query
+        return theCustomersQuery.getResultList();
 
     }
 }

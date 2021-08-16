@@ -1,11 +1,13 @@
 package com.luv2code.springdemo.controller;
 
 import com.luv2code.springdemo.dao.CustomerDAO;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.luv2code.springdemo.entities.Customer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("customers")
@@ -19,8 +21,9 @@ public class CustomerController {
 
     @GetMapping("list")
     public String listCustomers(Model model) {
-        model.addAttribute("customers", customerDAO.getCustomers());
-//        System.out.println("### a user from the DB: "+customerDAO.getCustomers().get(2));
+        List<Customer> customersFromDB = customerDAO.getCustomers();
+        model.addAttribute("customers", customersFromDB);
+        System.out.println("### a user from the DB: "+ customersFromDB.get(2));
         return "list-customers";
     }
 }
