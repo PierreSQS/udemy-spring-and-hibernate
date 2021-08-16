@@ -3,6 +3,10 @@
 <html lang="en">
 <head>
     <title>List Customers</title>
+    <!-- references our Style Sheet  -->
+    <link type="text/css"
+          rel="styleSheet"
+          href="${pageContext.request.contextPath}/resources/css/style.css"></link>
 
 </head>
 
