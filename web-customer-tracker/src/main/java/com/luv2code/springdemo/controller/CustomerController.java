@@ -5,6 +5,8 @@ import com.luv2code.springdemo.service.CustomerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -32,5 +34,12 @@ public class CustomerController {
         Customer customer = new Customer();
         model.addAttribute("customer",customer);
         return "customer-form";
+    }
+
+    @PostMapping("saveCustomer")
+    public String submitCustomer(@ModelAttribute Customer customer) {
+        // save the submittet customer
+        customerService.saveCustomer(customer);
+        return "redirect:/customers/list";
     }
 }
