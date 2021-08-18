@@ -26,4 +26,11 @@ public class CustomerController {
         System.out.println("### a user from the DB: "+ customersFromDB.get(2));
         return "list-customers";
     }
+
+    @GetMapping("showFormForAdd")
+    public String showAddCustomerForm(Model model) {
+        Customer customer = new Customer();
+        model.addAttribute("customer",customer);
+        return "customer-form";
+    }
 }
