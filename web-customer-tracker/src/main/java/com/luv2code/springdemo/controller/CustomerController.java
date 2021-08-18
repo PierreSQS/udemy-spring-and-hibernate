@@ -1,7 +1,7 @@
 package com.luv2code.springdemo.controller;
 
-import com.luv2code.springdemo.dao.CustomerDAO;
 import com.luv2code.springdemo.entities.Customer;
+import com.luv2code.springdemo.service.CustomerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +13,15 @@ import java.util.List;
 @RequestMapping("customers")
 public class CustomerController {
 
-    private final CustomerDAO customerDAO;
+    private final CustomerService customerService;
 
-    public CustomerController(CustomerDAO customerDAO) {
-        this.customerDAO = customerDAO;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     @GetMapping("list")
     public String listCustomers(Model model) {
-        List<Customer> customersFromDB = customerDAO.getCustomers();
+        List<Customer> customersFromDB = customerService.getCustomers();
         model.addAttribute("customers", customersFromDB);
         System.out.println("### a user from the DB: "+ customersFromDB.get(2));
         return "list-customers";
