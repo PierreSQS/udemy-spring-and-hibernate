@@ -38,4 +38,10 @@ public class CustomerImpl implements CustomerService {
         }
     }
 
+    @Override
+    @Transactional
+    public void deleteCustomerByID(Long customerID) {
+        customerDAO.deleteCustomerByID(customerID);
+    }
+
 }

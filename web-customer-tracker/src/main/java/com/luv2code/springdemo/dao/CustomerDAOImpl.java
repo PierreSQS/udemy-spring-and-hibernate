@@ -48,4 +48,20 @@ public class CustomerDAOImpl implements CustomerDAO {
         // find the customer by ID and return it if exists
         return currentSession.find(Customer.class, customerID);
     }
+
+    @Override
+    public void deleteCustomerByID(Long customerID) {
+        // get the current Session
+        final Session currentSession = sessionFactory.getCurrentSession();
+
+        // find the Customer by ID
+        Customer customer = currentSession.find(Customer.class, customerID);
+
+        // Delete the found Customer
+        if (customer != null) {
+            currentSession.delete(customer);
+        }
+
+
+    }
 }

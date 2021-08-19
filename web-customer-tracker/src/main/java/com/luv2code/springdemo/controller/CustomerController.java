@@ -39,9 +39,18 @@ public class CustomerController {
         return "customer-form";
     }
 
+    @GetMapping("deleteCustomer")
+    public String deleteCustomerOnForm(@RequestParam(required = false) Long customerID) {
+
+        // delete the customer from the service
+        customerService.deleteCustomerByID(customerID);
+
+        return "redirect:/customers/list";
+    }
+
     @PostMapping("saveCustomer")
     public String submitCustomer(@ModelAttribute Customer customer) {
-        // save the submittet customer
+        // save the submitted customer
         customerService.saveCustomer(customer);
         return "redirect:/customers/list";
     }
