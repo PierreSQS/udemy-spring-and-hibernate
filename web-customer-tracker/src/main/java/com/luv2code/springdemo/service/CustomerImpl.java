@@ -27,4 +27,15 @@ public class CustomerImpl implements CustomerService {
     public void saveCustomer(Customer customer) {
         customerDAO.saveCustomer(customer);
     }
+
+    @Override
+    @Transactional
+    public Customer getCustomerByID(Long customerID) {
+        if (customerID == null){
+            return new Customer();
+        } else {
+            return customerDAO.findByID(customerID);
+        }
+    }
+
 }

@@ -8,4 +8,7 @@ public interface CustomerDAO {
     List<Customer> getCustomers();
 
     void saveCustomer(Customer customer);
+
+    Customer findByID(Long customerID);
+
 }

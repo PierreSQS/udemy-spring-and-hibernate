@@ -39,4 +39,13 @@ public class CustomerDAOImpl implements CustomerDAO {
         // save the Customer and return it
         currentSession.saveOrUpdate(customer);
     }
+
+    @Override
+    public Customer findByID(Long customerID) {
+        // get the current Session
+        final Session currentSession = sessionFactory.getCurrentSession();
+
+        // find the customer by ID and return it if exists
+        return currentSession.find(Customer.class, customerID);
+    }
 }

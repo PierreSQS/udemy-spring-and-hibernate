@@ -4,10 +4,7 @@ import com.luv2code.springdemo.entities.Customer;
 import com.luv2code.springdemo.service.CustomerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,9 +27,15 @@ public class CustomerController {
     }
 
     @GetMapping("showFormForAdd")
-    public String showAddCustomerForm(Model model) {
-        Customer customer = new Customer();
+    public String showAddCustomerForm(@RequestParam(required = false) Long customerID, Model model) {
+
+        // get the customer from the service
+        Customer customer = customerService.getCustomerByID(customerID);
+
+        // Add the customer to the model
         model.addAttribute("customer",customer);
+
+        // return the customer form
         return "customer-form";
     }
 
