@@ -30,6 +30,13 @@
 			<version>2.9.5</version>
 		</dependency>
 
+		<!-- Add lombok to keep the entities simple -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.20</version>
+		</dependency>
+
 		<!-- Add Servlet support for 
 			 Spring's AbstractAnnotationConfigDispatcherServletInitializer -->
 		<dependency>
@@ -38,13 +45,11 @@
 			<version>3.1.0</version>
 		</dependency>
 
-		<!-- Add Support for JSP... Seems to be a problem in Eclipse (Yukk!)
+		<!-- Support for JSP not needed!!! JSPs are in fact
+			 provided by Tomcat!!! Seems to be a problem in Eclipse (Yukk!)
 		     but not in IntelliJ  -->
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>javax.servlet.jsp-api</artifactId>
-			<version>2.3.1</version>
-		</dependency>
+
+
 
 	</dependencies>
 
