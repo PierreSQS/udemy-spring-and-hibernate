@@ -1,10 +1,11 @@
 package com.luv2code.springdemo.rest;
 
 import com.luv2code.springdemo.entity.Student;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.luv2code.springdemo.entity.StudentNotFoundResponse;
+import com.luv2code.springdemo.exception.StudentNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -32,18 +33,24 @@ public class StudentRestController {
     @GetMapping("students/{studentId}")
     public Student getStudentByID(@PathVariable Integer studentId) {
 
-        Student foundStudent = null;
-
-        if (studentId > students.size()) {
-            foundStudent = new Student("Student","Not found");
-        } else {
-            for (Student student:students) {
-                if(student.getFirstName().equals(students.get(studentId).getFirstName())){
-                    foundStudent = student;
-                }
-            }
+        // Check if studentId in Bound of the List<Student>
+        if (studentId < 0 || studentId >= students.size()){
+            throw new StudentNotFoundException("Student with ID="+studentId+" not found!");
         }
-        return foundStudent;
+
+        return students.get(studentId);
+
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<StudentNotFoundResponse> handleException(StudentNotFoundException exception) {
+        var errorResp = new StudentNotFoundResponse();
+
+        errorResp.setStatus(HttpStatus.NOT_FOUND.value());
+        errorResp.setMessage(exception.getMessage());
+        errorResp.setTimeStamp(System.currentTimeMillis());
+
+        return new ResponseEntity<>(errorResp,HttpStatus.NOT_FOUND);
 
     }
 }
