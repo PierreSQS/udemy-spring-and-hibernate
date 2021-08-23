@@ -49,6 +49,13 @@
 			 provided by Tomcat!!! Seems to be a problem in Eclipse (Yukk!)
 		     but not in IntelliJ  -->
 
+		<!-- to support Annotation like @PostConstruct  -->
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
 
 
 	</dependencies>
