@@ -2,6 +2,7 @@ package com.luv2code.springdemo.service;
 
 import java.util.List;
 
+import com.luv2code.springdemo.exception.CustomerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +33,12 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	@Transactional
 	public Customer getCustomer(int theId) {
-		
-		return customerDAO.getCustomer(theId);
+
+		var foundCust = customerDAO.getCustomer(theId);
+		if (foundCust == null) {
+			throw new CustomerNotFoundException("Customer with ID="+theId+" not found!");
+		}
+		return foundCust;
 	}
 
 	@Override
