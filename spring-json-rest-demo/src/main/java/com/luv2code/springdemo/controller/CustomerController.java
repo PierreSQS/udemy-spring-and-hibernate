@@ -2,10 +2,7 @@ package com.luv2code.springdemo.controller;
 
 import com.luv2code.springdemo.entity.Customer;
 import com.luv2code.springdemo.service.CustomerService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +24,14 @@ public class CustomerController {
     public Customer getCustomerByID(@PathVariable int customerID) {
 
         return customerService.getCustomer(customerID);
+    }
+
+    @PostMapping("customers")
+    public Customer createNewCustomer(@RequestBody Customer customer) {
+        // id = null or id = 0 -> forces insert
+        customer.setId(0);
+        customerService.saveCustomer(customer);
+
+        return customer;
     }
 }
