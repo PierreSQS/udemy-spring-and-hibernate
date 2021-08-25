@@ -44,7 +44,11 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	@Transactional
 	public void deleteCustomer(int theId) {
-		
+		Customer foundCust = customerDAO.getCustomer(theId);
+
+		if (foundCust == null) {
+			throw new CustomerNotFoundException("Customer with ID="+theId+" not found!");
+		}
 		customerDAO.deleteCustomer(theId);
 	}
 }
