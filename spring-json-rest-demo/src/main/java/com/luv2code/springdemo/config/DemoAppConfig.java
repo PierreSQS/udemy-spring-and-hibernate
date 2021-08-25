@@ -1,11 +1,6 @@
 package com.luv2code.springdemo.config;
 
-import java.beans.PropertyVetoException;
-import java.util.Properties;
-import java.util.logging.Logger;
-
-import javax.sql.DataSource;
-
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,13 +11,13 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
+import java.util.Properties;
+import java.util.logging.Logger;
 
 @Configuration
 @EnableWebMvc
@@ -35,7 +30,7 @@ public class DemoAppConfig implements WebMvcConfigurer {
 	private Environment env;
 	
 	private Logger logger = Logger.getLogger(getClass().getName());
-	
+
 	// define a bean for ViewResolver
 
 	@Bean
@@ -46,7 +41,7 @@ public class DemoAppConfig implements WebMvcConfigurer {
 
 		// set the jdbc driver
 		try {
-			myDataSource.setDriverClass("com.mysql.jdbc.Driver");		
+			myDataSource.setDriverClass(env.getProperty("jdbc.driver"));
 		}
 		catch (PropertyVetoException exc) {
 			throw new RuntimeException(exc);
@@ -90,10 +85,9 @@ public class DemoAppConfig implements WebMvcConfigurer {
 		String propVal = env.getProperty(propName);
 		
 		// now convert to int
-		int intPropVal = Integer.parseInt(propVal);
+		return Integer.parseInt(propVal);
 		
-		return intPropVal;
-	}	
+	}
 	
 	@Bean
 	public LocalSessionFactoryBean sessionFactory(){
