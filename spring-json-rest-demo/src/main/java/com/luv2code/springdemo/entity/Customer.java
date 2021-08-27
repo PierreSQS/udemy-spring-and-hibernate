@@ -1,15 +1,12 @@
 package com.luv2code.springdemo.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
+@NoArgsConstructor
 @Data
 @Table(name="customer")
 public class Customer {
@@ -26,6 +23,13 @@ public class Customer {
 	private String lastName;
 	
 	private String email;
+
+	public Customer(String firstName, String lastName, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
+
 
 }
 
